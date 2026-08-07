@@ -45,12 +45,12 @@ export { Prisma }
  */
 export type User = Prisma.UserModel
 /**
- * Model VerificationCode
- * 
- */
-export type VerificationCode = Prisma.VerificationCodeModel
-/**
  * Model Profile
  * 
  */
 export type Profile = Prisma.ProfileModel
+/**
+ * Model VerificationCode
+ * 
+ */
+export type VerificationCode = Prisma.VerificationCodeModel

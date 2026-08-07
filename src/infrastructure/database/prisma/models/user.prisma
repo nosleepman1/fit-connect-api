@@ -1,0 +1,50 @@
+model User {
+    id         String   @id @default(uuid())
+    firstName  String
+    lastName   String
+    email      String   @unique
+    role       Role     @default(USER)
+    password   String
+    isVerified Boolean  @default(false)
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+
+    profile          Profile?
+    verificationCode VerificationCode?
+}
+
+enum Role {
+    ADMIN
+    USER
+    COACH
+}
+
+model VerificationCode {
+    id        String   @id @default(uuid())
+    userId    String   @unique
+    user      User     @relation(fields: [userId], references: [id])
+    token     String   @unique
+    expiresAt DateTime
+    createdAt DateTime @default(now())
+}
+
+model Profile {
+    id          String    @id @default(uuid())
+    userId      String    @unique
+    user        User      @relation(fields: [userId], references: [id])
+    avatarUrl   String?
+    bio         String?
+    phone       String?
+    dateOfBirth DateTime?
+    gender      Gender?
+    height      Float?
+    weight      Float?
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+}
+
+enum Gender {
+    MALE
+    FEMALE
+    OTHER
+}

@@ -1,6 +1,7 @@
 import { MailerModule as NestMailerModule } from '@nestjs-modules/mailer';
 import { MAILER_TOKEN } from '../contracts/tokens';
 import { MailerService } from '../mailer.service';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/adapters/handlebars.adapter';
 
 export const MailerModuleConfig = NestMailerModule.forRoot({
   transport: {
@@ -16,7 +17,8 @@ export const MailerModuleConfig = NestMailerModule.forRoot({
     from: process.env.MAIL_FROM,
   },
   template: {
-    dir: `${process.cwd()}/src/infrastructure/mail/templates`,
+    adapter: new HandlebarsAdapter(),
+    dir: 'src/infrastructure/mail/templates',
     options: {
       strict: true,
     },

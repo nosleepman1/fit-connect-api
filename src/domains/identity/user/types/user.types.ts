@@ -10,6 +10,9 @@ export interface UserSelectType {
 
 export const UserSelect = {
   id: true,
+  firstName: true,
+  lastName: true,
+  isVerified: true,
   email: true,
   role: true,
   createdAt: true,

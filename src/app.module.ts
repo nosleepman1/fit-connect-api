@@ -10,6 +10,7 @@ import { MailerService } from './infrastructure/mail/mailer.service';
 
 @Module({
   imports: [
+    MailerModule,
     ConfigModule.forRoot({ isGlobal: true }),
     PrismaModule,
     AuthModule,
@@ -18,6 +19,6 @@ import { MailerService } from './infrastructure/mail/mailer.service';
     CommentModule,
   ],
   controllers: [],
-  providers: [MailerService],
+  providers: [],
 })
 export class AppModule {}

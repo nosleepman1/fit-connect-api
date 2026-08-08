@@ -6,6 +6,12 @@ import {
   IsOptional,
 } from 'class-validator';
 export class RegisterDto {
+  @IsString({ message: 'Veuillez fournir un prénom valide.' })
+  firstName!: string;
+
+  @IsString({ message: 'Veuillez fournir un nom valide.' })
+  lastName!: string;
+
   @IsEmail({}, { message: 'Veuillez fournir un email valide.' })
   email!: string;
 

@@ -18,6 +18,8 @@ import { MailerInterface } from 'src/infrastructure/mail/contracts/mailer.interf
 import { AuthMailerService } from './auth-mailer.service';
 import { AUTH_REPOSITORY_TOKEN } from '../contracts/tokens';
 import { AuthRepositoryInterface } from '../contracts/auth-repository.interface';
+import { InjectQueue } from '@nestjs/bullmq';
+import { Queue } from 'bullmq';
 
 @Injectable()
 export class AuthService {
@@ -27,6 +29,8 @@ export class AuthService {
     private readonly authMailerService: AuthMailerService,
     @Inject(AUTH_REPOSITORY_TOKEN)
     private readonly authRepository: AuthRepositoryInterface,
+    @InjectQueue('sendEmailVerification')
+    private readonly sendEmailVerification: Queue,
   ) {}
 
   async register(registerDto: RegisterDto): Promise<UserEntity> {

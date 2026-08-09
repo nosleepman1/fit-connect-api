@@ -8,6 +8,7 @@ import { MailerModule } from 'src/infrastructure/mail/mailer.module';
 import { AuthMailerService } from './services/auth-mailer.service';
 import { AUTH_REPOSITORY_TOKEN } from './contracts/tokens';
 import { AuthRepository } from './repository/auth.repository';
+import { BullModule } from '@nestjs/bullmq';
 
 @Module({
   imports: [
@@ -20,6 +21,9 @@ import { AuthRepository } from './repository/auth.repository';
       },
     }),
     MailerModule,
+    BullModule.registerQueue({
+      name: 'sendEmailVerification',
+    }),
   ],
   controllers: [AuthController],
   providers: [

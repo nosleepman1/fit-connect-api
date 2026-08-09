@@ -7,6 +7,7 @@ import { LikeModule } from './domains/social/like/like.module';
 import { PrismaModule } from './infrastructure/database/prisma/prisma.module';
 import { MailerModule } from './infrastructure/mail/mailer.module';
 import { MailerService } from './infrastructure/mail/mailer.service';
+import { BullModule } from '@nestjs/bullmq';
 
 @Module({
   imports: [
@@ -17,6 +18,12 @@ import { MailerService } from './infrastructure/mail/mailer.service';
     ProfileModule,
     LikeModule,
     CommentModule,
+    BullModule.forRoot({
+      connection: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
   ],
   controllers: [],
   providers: [],

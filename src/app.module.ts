@@ -8,6 +8,8 @@ import { PrismaModule } from './infrastructure/database/prisma/prisma.module';
 import { MailerModule } from './infrastructure/mail/mailer.module';
 import { MailerService } from './infrastructure/mail/mailer.service';
 import { BullModule } from '@nestjs/bullmq';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -18,12 +20,8 @@ import { BullModule } from '@nestjs/bullmq';
     ProfileModule,
     LikeModule,
     CommentModule,
-    BullModule.forRoot({
-      connection: {
-        host: 'localhost',
-        port: 6379,
-      },
-    }),
+    ScheduleModule.forRoot(),
+    EventEmitterModule.forRoot(),
   ],
   controllers: [],
   providers: [],

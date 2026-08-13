@@ -20,6 +20,8 @@ import { AUTH_REPOSITORY_TOKEN } from '../contracts/tokens';
 import { AuthRepositoryInterface } from '../contracts/auth-repository.interface';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { UserRegisteredEvent } from '../events/user-registered.event';
 
 @Injectable()
 export class AuthService {
@@ -29,8 +31,7 @@ export class AuthService {
     private readonly authMailerService: AuthMailerService,
     @Inject(AUTH_REPOSITORY_TOKEN)
     private readonly authRepository: AuthRepositoryInterface,
-    @InjectQueue('sendEmailVerification')
-    private readonly sendEmailVerification: Queue,
+    private eventEmitter: EventEmitter2,
   ) {}
 
   async register(registerDto: RegisterDto): Promise<UserEntity> {
@@ -49,8 +50,12 @@ export class AuthService {
     const userEntity = await this.userService.create(newUser as CreateUserDto);
 
     const token = await this.registerVerificationCode(userEntity.id);
+    this.eventEmitter.emit(
+      'user.registered',
+      new UserRegisteredEvent(userEntity, token),
+    );
 
-    await this.authMailerService.sendVerificationEmail(userEntity, token);
+    //await this.authMailerService.sendVerificationEmail(userEntity, token);
 
     return userEntity;
   }

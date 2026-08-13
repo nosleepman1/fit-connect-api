@@ -20,8 +20,9 @@ import { AUTH_REPOSITORY_TOKEN } from '../contracts/tokens';
 import { AuthRepositoryInterface } from '../contracts/auth-repository.interface';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
 import { UserRegisteredEvent } from '../events/user-registered.event';
+import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Injectable()
 export class AuthService {
@@ -50,6 +51,7 @@ export class AuthService {
     const userEntity = await this.userService.create(newUser as CreateUserDto);
 
     const token = await this.registerVerificationCode(userEntity.id);
+
     this.eventEmitter.emit(
       'user.registered',
       new UserRegisteredEvent(userEntity, token),
@@ -59,6 +61,8 @@ export class AuthService {
 
     return userEntity;
   }
+
+
 
   async login(loginDto: LoginDto): Promise<LoginResponse> {
     const existingUser = await this.userService.findByEmail(loginDto.email);

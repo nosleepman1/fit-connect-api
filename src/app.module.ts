@@ -22,6 +22,12 @@ import { ScheduleModule } from '@nestjs/schedule';
     CommentModule,
     ScheduleModule.forRoot(),
     EventEmitterModule.forRoot(),
+    BullModule.forRoot({
+      connection: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
   ],
   controllers: [],
   providers: [],

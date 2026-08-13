@@ -5,4 +5,5 @@ export class UserRegisteredEvent {
     public user: UserEntity,
     public token: string,
   ) {}
+
 }

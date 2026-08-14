@@ -7,16 +7,19 @@ import { LoginResponse } from './types/auth.types';
 import { JwtAuthGuard } from '../strategy/jwt-auth.guard';
 import { Request } from 'express';
 import { CurrentUser } from 'src/infrastructure/decorators/current-user.decorator';
+import { AuthThrottle } from '../../../infrastructure/decorators/auth-throttler.decorator';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @AuthThrottle()
   @Post('register')
   register(@Body() registerDto: RegisterDto): Promise<UserEntity> {
     return this.authService.register(registerDto);
   }
 
+  @AuthThrottle()
   @Post('login')
   login(@Body() loginDto: LoginDto): Promise<LoginResponse> {
     return this.authService.login(loginDto);
@@ -30,7 +33,7 @@ export class AuthController {
 
   @Post('verify')
   async verify(
-    @CurrentUser('id') userId: string,
+    @CurrentUser('sub') userId: string,
     @Body() body: { code: string },
   ): Promise<void> {
     await this.authService.verifyAcount(userId, body.code);

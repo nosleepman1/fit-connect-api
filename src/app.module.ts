@@ -10,6 +10,8 @@ import { MailerService } from './infrastructure/mail/mailer.service';
 import { BullModule } from '@nestjs/bullmq';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ScheduleModule } from '@nestjs/schedule';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -28,8 +30,22 @@ import { ScheduleModule } from '@nestjs/schedule';
         port: 6379,
       },
     }),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          name: 'auth',
+          ttl: 60000,
+          limit: 10,
+        },
+      ],
+    }),
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {}

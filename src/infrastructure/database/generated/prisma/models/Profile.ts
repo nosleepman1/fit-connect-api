@@ -226,7 +226,7 @@ export type ProfileGroupByOutputType = {
   bio: string | null
   phone: string | null
   dateOfBirth: Date | null
-  gender: $Enums.Gender | null
+  gender: $Enums.Gender
   height: number | null
   weight: number | null
   createdAt: Date
@@ -263,7 +263,7 @@ export type ProfileWhereInput = {
   bio?: Prisma.StringNullableFilter<"Profile"> | string | null
   phone?: Prisma.StringNullableFilter<"Profile"> | string | null
   dateOfBirth?: Prisma.DateTimeNullableFilter<"Profile"> | Date | string | null
-  gender?: Prisma.EnumGenderNullableFilter<"Profile"> | $Enums.Gender | null
+  gender?: Prisma.EnumGenderFilter<"Profile"> | $Enums.Gender
   height?: Prisma.FloatNullableFilter<"Profile"> | number | null
   weight?: Prisma.FloatNullableFilter<"Profile"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
@@ -278,7 +278,7 @@ export type ProfileOrderByWithRelationInput = {
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   dateOfBirth?: Prisma.SortOrderInput | Prisma.SortOrder
-  gender?: Prisma.SortOrderInput | Prisma.SortOrder
+  gender?: Prisma.SortOrder
   height?: Prisma.SortOrderInput | Prisma.SortOrder
   weight?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -296,7 +296,7 @@ export type ProfileWhereUniqueInput = Prisma.AtLeast<{
   bio?: Prisma.StringNullableFilter<"Profile"> | string | null
   phone?: Prisma.StringNullableFilter<"Profile"> | string | null
   dateOfBirth?: Prisma.DateTimeNullableFilter<"Profile"> | Date | string | null
-  gender?: Prisma.EnumGenderNullableFilter<"Profile"> | $Enums.Gender | null
+  gender?: Prisma.EnumGenderFilter<"Profile"> | $Enums.Gender
   height?: Prisma.FloatNullableFilter<"Profile"> | number | null
   weight?: Prisma.FloatNullableFilter<"Profile"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
@@ -311,7 +311,7 @@ export type ProfileOrderByWithAggregationInput = {
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   dateOfBirth?: Prisma.SortOrderInput | Prisma.SortOrder
-  gender?: Prisma.SortOrderInput | Prisma.SortOrder
+  gender?: Prisma.SortOrder
   height?: Prisma.SortOrderInput | Prisma.SortOrder
   weight?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -333,7 +333,7 @@ export type ProfileScalarWhereWithAggregatesInput = {
   bio?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   phone?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   dateOfBirth?: Prisma.DateTimeNullableWithAggregatesFilter<"Profile"> | Date | string | null
-  gender?: Prisma.EnumGenderNullableWithAggregatesFilter<"Profile"> | $Enums.Gender | null
+  gender?: Prisma.EnumGenderWithAggregatesFilter<"Profile"> | $Enums.Gender
   height?: Prisma.FloatNullableWithAggregatesFilter<"Profile"> | number | null
   weight?: Prisma.FloatNullableWithAggregatesFilter<"Profile"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Profile"> | Date | string
@@ -346,7 +346,7 @@ export type ProfileCreateInput = {
   bio?: string | null
   phone?: string | null
   dateOfBirth?: Date | string | null
-  gender?: $Enums.Gender | null
+  gender: $Enums.Gender
   height?: number | null
   weight?: number | null
   createdAt?: Date | string
@@ -361,7 +361,7 @@ export type ProfileUncheckedCreateInput = {
   bio?: string | null
   phone?: string | null
   dateOfBirth?: Date | string | null
-  gender?: $Enums.Gender | null
+  gender: $Enums.Gender
   height?: number | null
   weight?: number | null
   createdAt?: Date | string
@@ -374,7 +374,7 @@ export type ProfileUpdateInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
   height?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -389,7 +389,7 @@ export type ProfileUncheckedUpdateInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
   height?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -403,7 +403,7 @@ export type ProfileCreateManyInput = {
   bio?: string | null
   phone?: string | null
   dateOfBirth?: Date | string | null
-  gender?: $Enums.Gender | null
+  gender: $Enums.Gender
   height?: number | null
   weight?: number | null
   createdAt?: Date | string
@@ -416,7 +416,7 @@ export type ProfileUpdateManyMutationInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
   height?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -430,7 +430,7 @@ export type ProfileUncheckedUpdateManyInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
   height?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -534,8 +534,8 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
 
-export type NullableEnumGenderFieldUpdateOperationsInput = {
-  set?: $Enums.Gender | null
+export type EnumGenderFieldUpdateOperationsInput = {
+  set?: $Enums.Gender
 }
 
 export type NullableFloatFieldUpdateOperationsInput = {
@@ -552,7 +552,7 @@ export type ProfileCreateWithoutUserInput = {
   bio?: string | null
   phone?: string | null
   dateOfBirth?: Date | string | null
-  gender?: $Enums.Gender | null
+  gender: $Enums.Gender
   height?: number | null
   weight?: number | null
   createdAt?: Date | string
@@ -565,7 +565,7 @@ export type ProfileUncheckedCreateWithoutUserInput = {
   bio?: string | null
   phone?: string | null
   dateOfBirth?: Date | string | null
-  gender?: $Enums.Gender | null
+  gender: $Enums.Gender
   height?: number | null
   weight?: number | null
   createdAt?: Date | string
@@ -594,7 +594,7 @@ export type ProfileUpdateWithoutUserInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
   height?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -607,7 +607,7 @@ export type ProfileUncheckedUpdateWithoutUserInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
   height?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -698,7 +698,7 @@ export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     bio: string | null
     phone: string | null
     dateOfBirth: Date | null
-    gender: $Enums.Gender | null
+    gender: $Enums.Gender
     height: number | null
     weight: number | null
     createdAt: Date

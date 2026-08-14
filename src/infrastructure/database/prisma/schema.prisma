@@ -41,7 +41,7 @@ model Profile {
   bio         String?
   phone       String?
   dateOfBirth DateTime?
-  gender      Gender?
+  gender      Gender
   height      Float?
   weight      Float?
   createdAt   DateTime  @default(now())
@@ -52,13 +52,4 @@ enum Gender {
   MALE
   FEMALE
   OTHER
-}
-
-model VerificationCode {
-  id        String   @id @default(uuid())
-  userId    String   @unique
-  user      User     @relation(fields: [userId], references: [id])
-  token     String   @unique
-  expiresAt DateTime
-  createdAt DateTime @default(now())
 }

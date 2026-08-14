@@ -10,19 +10,7 @@ import {
 import { Gender } from 'src/infrastructure/database/generated/prisma/enums';
 
 export class CreateProfileDto {
-  @IsString({ message: 'le prenom doit etre une chaine de caractere' })
-  @MinLength(3, { message: 'le prenom doit contenir au moins 3 caracteres' })
-  @MaxLength(100, {
-    message: 'le prenom doit contenir au plus 100 caracteres',
-  })
-  @IsOptional()
-  firstName!: string;
 
-  @IsString({ message: 'le nom doit etre une chaine de caractere' })
-  @MinLength(3, { message: 'le nom doit contenir au moins 3 caracteres' })
-  @MaxLength(100, { message: 'le nom doit contenir au plus 100 caracteres' })
-  @IsOptional()
-  lastName!: string;
 
   @IsString({ message: 'l avatarUrl doit etre une chaine de caractere' })
   @IsOptional()

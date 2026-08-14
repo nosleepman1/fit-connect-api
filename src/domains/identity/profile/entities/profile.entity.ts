@@ -1,13 +1,14 @@
 import { Gender } from '../types/profile.types';
 
-export class Profile {
+export class ProfileEntity {
   id!: string;
-  firstName!: string;
-  lastName!: string;
+  avatarUrl!: string | null;
+  bio!: string | null;
+  phone!: string | null;
   gender!: Gender;
-  dateOfBirth!: Date;
-  height!: number;
-  weight!: number;
+  dateOfBirth!: Date | null;
+  height!: number | null;
+  weight!: number | null;
   createdAt!: Date;
   updatedAt!: Date;
   userId!: string;

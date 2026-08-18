@@ -26,6 +26,7 @@ model User {
 
   profile          Profile?
   verificationCode VerificationCode?
+  posts            Post[]
 }
 
 enum Role {
@@ -62,4 +63,24 @@ enum Gender {
   MALE
   FEMALE
   OTHER
+}
+
+model Post {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  title       String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  images PostImage[]
+}
+
+model PostImage {
+  id      String  @id @default(uuid())
+  postId  String
+  post    Post    @relation(fields: [postId], references: [id])
+  path    String
+  isCover Boolean @default(false)
 }

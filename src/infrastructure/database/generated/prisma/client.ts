@@ -54,3 +54,13 @@ export type VerificationCode = Prisma.VerificationCodeModel
  * 
  */
 export type Profile = Prisma.ProfileModel
+/**
+ * Model Post
+ * 
+ */
+export type Post = Prisma.PostModel
+/**
+ * Model PostImage
+ * 
+ */
+export type PostImage = Prisma.PostImageModel

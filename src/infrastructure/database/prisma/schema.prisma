@@ -14,25 +14,18 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(uuid())
-  firstName  String
-  lastName   String
-  email      String   @unique
-  role       Role     @default(USER)
-  password   String
-  isVerified Boolean  @default(false)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-
+  id               String            @id @default(uuid())
+  email            String            @unique
+  firstName        String
+  lastName         String
+  role             Role              @default(USER)
+  password         String
+  isVerified       Boolean           @default(false)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
   profile          Profile?
   verificationCode VerificationCode?
   posts            Post[]
-}
-
-enum Role {
-  ADMIN
-  USER
-  COACH
 }
 
 model VerificationCode {
@@ -42,6 +35,12 @@ model VerificationCode {
   token     String   @unique
   expiresAt DateTime
   createdAt DateTime @default(now())
+}
+
+enum Role {
+  ADMIN
+  USER
+  COACH
 }
 
 model Profile {

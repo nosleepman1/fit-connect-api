@@ -7,7 +7,7 @@ import { PrismaService } from '../../../../infrastructure/database/prisma/prisma
 
 @Injectable()
 export class PrismaProfileRepository implements ProfileInterface {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async createProfile(
     userId: string,
@@ -16,6 +16,7 @@ export class PrismaProfileRepository implements ProfileInterface {
     return this.prisma.profile.create({
       data: {
         ...createProfileDto,
+
         user: {
           connect: {
             id: userId,

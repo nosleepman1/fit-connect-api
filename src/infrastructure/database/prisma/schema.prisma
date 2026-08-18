@@ -14,17 +14,27 @@ datasource db {
 }
 
 model User {
-  id               String             @id @default(uuid())
-  email            String             @unique
+  id               String            @id @default(uuid())
+  email            String            @unique
   firstName        String
   lastName         String
-  role             Role               @default(USER)
+  role             Role              @default(USER)
   password         String
-  isVerified       Boolean            @default(false)
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
+  isVerified       Boolean           @default(false)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
   profile          Profile?
   verificationCode VerificationCode?
+  posts            Post[]
+}
+
+model VerificationCode {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
 }
 
 enum Role {
@@ -52,4 +62,24 @@ enum Gender {
   MALE
   FEMALE
   OTHER
+}
+
+model Post {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  title       String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  images PostImage[]
+}
+
+model PostImage {
+  id      String  @id @default(uuid())
+  postId  String
+  post    Post    @relation(fields: [postId], references: [id])
+  path    String
+  isCover Boolean @default(false)
 }

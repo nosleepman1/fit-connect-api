@@ -12,6 +12,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { PostModule } from './domains/social/post/post.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { APP_GUARD } from '@nestjs/core';
         },
       ],
     }),
+    PostModule,
   ],
   controllers: [],
   providers: [

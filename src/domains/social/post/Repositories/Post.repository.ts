@@ -4,7 +4,7 @@ import { CreatePostDto } from '../dto/create-post.dto';
 import { UpdatePostDto } from '../dto/update-post.dto';
 import { PostEntity } from '../entities/post.entity';
 import { PrismaService } from '../../../../infrastructure/database/prisma/prisma.service';
-
+import { NotFoundException } from '@nestjs/common';
 @Injectable()
 export class PostRepository implements PostReposiitoryInterface {
   constructor(private readonly prisma: PrismaService) {}
@@ -24,19 +24,68 @@ export class PostRepository implements PostReposiitoryInterface {
       },
     });
   }
-  getMyPosts(): Promise<PostEntity[]> {
-    throw new Error('Method not implemented.');
+
+  
+  getMyPosts(userId: string): Promise<PostEntity[]> {
+    return this.prisma.post.findMany({
+      where: {
+        userId: userId,
+      },
+      
+    });
   }
+
+
   getAllPosts(): Promise<PostEntity[]> {
-    throw new Error('Method not implemented.');
+    //using pagination per 20 for all posts
+    return this.prisma.post.findMany({
+      take: 20,
+      orderBy: {  
+        createdAt: 'desc',
+      },
+    });
   }
-  getPostById(id: string): Promise<PostEntity> {
-    throw new Error('Method not implemented.');
+
+
+  async getPostById(id: string): Promise<PostEntity> {
+    const post = await this.prisma.post.findUnique({
+      where: {
+        id: id,
+      },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        createdAt: true,
+        updatedAt: true,
+        userId: true,
+      },
+    });
+
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+
+    return post;
   }
-  updatePost(updatePostDto: UpdatePostDto): Promise<PostEntity> {
-    throw new Error('Method not implemented.');
+
+
+  updatePost(userId: string, updatePostDto: UpdatePostDto): Promise<PostEntity> {
+    return this.prisma.post.update({
+      where: {
+        id: (updatePostDto as UpdatePostDto & { id: PostEntity['id'] }).id,
+        userId: userId,
+      },
+      data: updatePostDto,
+    });
   }
-  deletePost(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+
+
+  async deletePost(id: string): Promise<void> {
+    await  this.prisma.post.delete({
+      where: {
+        id: id,
+      },
+    })
   }
 }

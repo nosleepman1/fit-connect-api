@@ -13,6 +13,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { PostModule } from './domains/social/post/post.module';
+import { PostImageModule } from './domains/social/post-image/post-image.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { PostModule } from './domains/social/post/post.module';
       ],
     }),
     PostModule,
+    PostImageModule,
   ],
   controllers: [],
   providers: [

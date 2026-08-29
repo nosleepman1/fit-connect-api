@@ -1,18 +1,18 @@
-import { Injectable } from '@nestjs/common';
+﻿import {
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PostReposiitoryInterface } from '../contracts/post-reposiitory.interface';
 import { CreatePostDto } from '../dto/create-post.dto';
 import { UpdatePostDto } from '../dto/update-post.dto';
 import { PostEntity } from '../entities/post.entity';
 import { PrismaService } from '../../../../infrastructure/database/prisma/prisma.service';
-import { NotFoundException } from '@nestjs/common';
+
 @Injectable()
 export class PostRepository implements PostReposiitoryInterface {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
-  createPost(
-    userId: string,
-    createPostDto: CreatePostDto,
-  ): Promise<PostEntity> {
+  createPost(userId: string, createPostDto: CreatePostDto): Promise<PostEntity> {
     return this.prisma.post.create({
       data: {
         ...createPostDto,
@@ -25,32 +25,27 @@ export class PostRepository implements PostReposiitoryInterface {
     });
   }
 
-  
   getMyPosts(userId: string): Promise<PostEntity[]> {
     return this.prisma.post.findMany({
       where: {
-        userId: userId,
+        userId,
       },
-      
     });
   }
 
-
   getAllPosts(): Promise<PostEntity[]> {
-    //using pagination per 20 for all posts
     return this.prisma.post.findMany({
       take: 20,
-      orderBy: {  
+      orderBy: {
         createdAt: 'desc',
       },
     });
   }
 
-
   async getPostById(id: string): Promise<PostEntity> {
     const post = await this.prisma.post.findUnique({
       where: {
-        id: id,
+        id,
       },
       select: {
         id: true,
@@ -69,23 +64,22 @@ export class PostRepository implements PostReposiitoryInterface {
     return post;
   }
 
-
   updatePost(userId: string, updatePostDto: UpdatePostDto): Promise<PostEntity> {
     return this.prisma.post.update({
       where: {
         id: (updatePostDto as UpdatePostDto & { id: PostEntity['id'] }).id,
-        userId: userId,
+        userId,
       },
       data: updatePostDto,
     });
   }
 
-
   async deletePost(id: string): Promise<void> {
-    await  this.prisma.post.delete({
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    await this.prisma.post.delete({
       where: {
-        id: id,
+        id,
       },
-    })
+    });
   }
 }

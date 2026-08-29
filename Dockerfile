@@ -2,9 +2,6 @@
 # 1. Base Stage
 # ==========================================
 FROM node:22-alpine AS base
-
-# Install dumb-init for proper PID 1 signal handling
-RUN apk add --no-cache dumb-init libc6-compat
 WORKDIR /app
 
 # ==========================================
@@ -69,5 +66,4 @@ COPY --chown=node:node --from=builder /app/prisma.config.ts ./prisma.config.ts
 
 EXPOSE 3000
 
-ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 CMD ["node", "dist/main"]

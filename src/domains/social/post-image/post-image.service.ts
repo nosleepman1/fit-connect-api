@@ -4,6 +4,10 @@ import { UpdatePostImageDto } from './dto/update-post-image.dto';
 
 @Injectable()
 export class PostImageService {
+
+  constructor() { }
+
+
   create(createPostImageDto: CreatePostImageDto) {
     return 'This action adds a new postImage';
   }

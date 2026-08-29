@@ -1,0 +1,1 @@
+export const POST_IMAGE_TOKEN = Symbol('POST_IMAGE_TOKEN')

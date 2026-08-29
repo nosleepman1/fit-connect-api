@@ -1,1 +1,1 @@
-export const POST_TOKEN = Symbol('TEXT_TOKEN')
+export const POST_TOKEN = Symbol('POST_TOKEN')

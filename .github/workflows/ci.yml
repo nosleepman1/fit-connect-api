@@ -45,19 +45,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
       - name: Build Docker Development Stage
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          target: development
-          push: false
+        run: docker build --target development -t fitconnect:dev .
 
       - name: Build Docker Production Stage
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          target: production
-          push: false
+        run: docker build --target production -t fitconnect:prod .

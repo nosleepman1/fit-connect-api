@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './domains/identity/auth/auth.module';
 import { ProfileModule } from './domains/identity/profile/profile.module';
 import { CommentModule } from './domains/social/comment/comment.module';
 import { LikeModule } from './domains/social/like/like.module';
 import { PrismaModule } from './infrastructure/database/prisma/prisma.module';
 import { MailerModule } from './infrastructure/mail/mailer.module';
-import { MailerService } from './infrastructure/mail/mailer.service';
 import { BullModule } from '@nestjs/bullmq';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -26,11 +25,14 @@ import { PostImageModule } from './domains/social/post-image/post-image.module';
     CommentModule,
     ScheduleModule.forRoot(),
     EventEmitterModule.forRoot(),
-    BullModule.forRoot({
-      connection: {
-        host: 'localhost',
-        port: 6379,
-      },
+    BullModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        connection: {
+          host: configService.get<string>('REDIS_HOST', 'localhost'),
+          port: Number(configService.get<number>('REDIS_PORT', 6379)),
+        },
+      }),
     }),
     ThrottlerModule.forRoot({
       throttlers: [

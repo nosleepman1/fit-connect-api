@@ -6,13 +6,12 @@ import { MAILER_TOKEN } from '../../../../infrastructure/mail/contracts/tokens';
 import { MailerInterface } from '../../../../infrastructure/mail/contracts/mailer.interface';
 
 export interface jobData {
-  user: UserEntity,
+  user: UserEntity;
   token: string;
 }
 
 @Processor('email')
-export class EmailProcessor extends WorkerHost{
-
+export class EmailProcessor extends WorkerHost {
   constructor(@Inject(MAILER_TOKEN) private readonly mailer: MailerInterface) {
     super();
   }

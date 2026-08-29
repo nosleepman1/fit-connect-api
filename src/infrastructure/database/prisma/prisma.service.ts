@@ -3,11 +3,6 @@ import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { PrismaClient } from 'src/infrastructure/database/generated/prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 
-/* eslint-disable
-  @typescript-eslint/no-unsafe-assignment,
-  @typescript-eslint/no-unsafe-call
-*/
-
 @Injectable()
 export class PrismaService
   extends PrismaClient

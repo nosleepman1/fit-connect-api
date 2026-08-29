@@ -1,7 +1,4 @@
-﻿import {
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+﻿import { Injectable, NotFoundException } from '@nestjs/common';
 import { PostReposiitoryInterface } from '../contracts/post-reposiitory.interface';
 import { CreatePostDto } from '../dto/create-post.dto';
 import { UpdatePostDto } from '../dto/update-post.dto';
@@ -10,9 +7,12 @@ import { PrismaService } from '../../../../infrastructure/database/prisma/prisma
 
 @Injectable()
 export class PostRepository implements PostReposiitoryInterface {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
-  createPost(userId: string, createPostDto: CreatePostDto): Promise<PostEntity> {
+  createPost(
+    userId: string,
+    createPostDto: CreatePostDto,
+  ): Promise<PostEntity> {
     return this.prisma.post.create({
       data: {
         ...createPostDto,
@@ -64,7 +64,10 @@ export class PostRepository implements PostReposiitoryInterface {
     return post;
   }
 
-  updatePost(userId: string, updatePostDto: UpdatePostDto): Promise<PostEntity> {
+  updatePost(
+    userId: string,
+    updatePostDto: UpdatePostDto,
+  ): Promise<PostEntity> {
     return this.prisma.post.update({
       where: {
         id: (updatePostDto as UpdatePostDto & { id: PostEntity['id'] }).id,
@@ -75,7 +78,6 @@ export class PostRepository implements PostReposiitoryInterface {
   }
 
   async deletePost(id: string): Promise<void> {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     await this.prisma.post.delete({
       where: {
         id,

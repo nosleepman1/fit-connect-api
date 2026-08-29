@@ -62,8 +62,6 @@ export class AuthService {
     return userEntity;
   }
 
-
-
   async login(loginDto: LoginDto): Promise<LoginResponse> {
     const existingUser = await this.userService.findByEmail(loginDto.email);
 

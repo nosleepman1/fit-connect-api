@@ -10,8 +10,6 @@ import {
 import { Gender } from 'src/infrastructure/database/generated/prisma/enums';
 
 export class CreateProfileDto {
-
-
   @IsString({ message: 'l avatarUrl doit etre une chaine de caractere' })
   @IsOptional()
   avatarUrl!: string;

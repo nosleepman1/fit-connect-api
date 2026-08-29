@@ -14,7 +14,7 @@ export class ProfileService {
 
   createProfile(
     userId: string,
-    createProfileDto: CreateProfileDto
+    createProfileDto: CreateProfileDto,
   ): Promise<ProfileEntity> {
     return this.profileRepository.createProfile(userId, createProfileDto);
   }
@@ -34,7 +34,7 @@ export class ProfileService {
     return this.profileRepository.updateProfile(id, updateProfileDto);
   }
 
-  remove(id: string) : Promise<void> {
+  remove(id: string): Promise<void> {
     return this.profileRepository.deleteProfileById(id);
   }
 }

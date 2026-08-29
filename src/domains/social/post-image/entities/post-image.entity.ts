@@ -4,4 +4,3 @@ export class PostImageEntity {
   postId!: string;
   imageUrl!: string;
 }
-    

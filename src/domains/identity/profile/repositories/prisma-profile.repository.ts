@@ -7,7 +7,7 @@ import { PrismaService } from '../../../../infrastructure/database/prisma/prisma
 
 @Injectable()
 export class PrismaProfileRepository implements ProfileInterface {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async createProfile(
     userId: string,
@@ -28,7 +28,7 @@ export class PrismaProfileRepository implements ProfileInterface {
 
   async updateProfile(
     userId: string,
-    updateProfileDto: UpdateProfileDto
+    updateProfileDto: UpdateProfileDto,
   ): Promise<ProfileEntity> {
     return this.prisma.profile.update({
       data: {

@@ -37,7 +37,7 @@ export class ProfileController {
   @Patch(':id')
   update(
     @CurrentUser('sub') id: string,
-    @Body() updateProfileDto: UpdateProfileDto
+    @Body() updateProfileDto: UpdateProfileDto,
   ): Promise<ProfileEntity> {
     return this.profileService.update(id, updateProfileDto);
   }

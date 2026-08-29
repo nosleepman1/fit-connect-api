@@ -8,7 +8,8 @@ import { Queue } from 'bullmq';
 
 @Injectable()
 export class UserRegisteredListener {
-  constructor(@Inject(MAILER_TOKEN) private readonly mailer: MailerInterface,
+  constructor(
+    @Inject(MAILER_TOKEN) private readonly mailer: MailerInterface,
     @InjectQueue('email') private readonly emailQueue: Queue,
   ) {}
 

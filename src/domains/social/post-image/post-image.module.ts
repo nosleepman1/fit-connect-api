@@ -14,4 +14,4 @@ import { PostImageRepository } from './repository/post-image.repository';
     PostImageService,
   ],
 })
-export class PostImageModule { }
+export class PostImageModule {}

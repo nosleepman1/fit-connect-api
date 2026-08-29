@@ -16,7 +16,7 @@ COPY package*.json ./
 COPY prisma.config.ts ./
 COPY src/infrastructure/database/prisma ./src/infrastructure/database/prisma/
 
-RUN npm ci
+RUN npm ci || npm install
 
 # ==========================================
 # 3. Development Stage (Hot-reloading in container)

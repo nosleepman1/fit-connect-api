@@ -9,7 +9,7 @@ on:
 jobs:
   lint-and-test:
     name: Lint, Test & Build
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout repository
@@ -38,7 +38,7 @@ jobs:
 
   docker-build:
     name: Validate Docker Images
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: lint-and-test
 
     steps:

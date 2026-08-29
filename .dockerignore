@@ -1,0 +1,36 @@
+# Git
+.git
+.gitignore
+
+# Dependencies & Build
+node_modules
+dist
+coverage
+*.tsbuildinfo
+
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+
+# IDE & Editor files
+.idea
+.vscode
+.windsurf
+.claude
+.agents
+*.swp
+*.swo
+
+# Logs & Temp
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+.DS_Store
+Thumbs.db
+
+# Docker files & Docs
+Dockerfile*
+docker-compose*.yml
+README.md

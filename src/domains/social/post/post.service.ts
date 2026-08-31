@@ -1,26 +1,34 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { PostReposiitoryInterface } from './contracts/post-reposiitory.interface';
+import { POST_TOKEN } from './contracts/tokens';
 
 @Injectable()
 export class PostService {
-  create(createPostDto: CreatePostDto) {
-    return 'This action adds a new post';
+
+  constructor(
+    @Inject(POST_TOKEN)
+    private readonly postRepository: PostReposiitoryInterface
+  ) { }
+
+  create(userId: string, createPostDto: CreatePostDto) {
+    return this.postRepository.createPost(userId, createPostDto);
   }
 
-  findAll() {
-    return `This action returns all post`;
+  findAll(userId: string) {
+    return this.postRepository.getAllPosts();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
+  findOne(id: string) {
+    return this.postRepository.getPostById(id);
   }
 
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
+  update(id: string, updatePostDto: UpdatePostDto) {
+    return this.postRepository.updatePost(id, updatePostDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  remove(id: string) {
+    return this.postRepository.deletePost(id);
   }
 }

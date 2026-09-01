@@ -17,6 +17,7 @@ import { StorageModule } from './infrastructure/storage/storage.module';
 
 @Module({
   imports: [
+    StorageModule,
     MailerModule,
     ConfigModule.forRoot({ isGlobal: true }),
     PrismaModule,
@@ -56,4 +57,4 @@ import { StorageModule } from './infrastructure/storage/storage.module';
     },
   ],
 })
-export class AppModule {}
+export class AppModule { }

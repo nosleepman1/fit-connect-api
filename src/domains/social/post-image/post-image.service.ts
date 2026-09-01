@@ -5,19 +5,26 @@ import * as fs from "fs"
 import { POST_IMAGE_TOKEN } from './contracts/token';
 import { PostImageRepository } from './repository/post-image.repository';
 import { randomUUID } from 'bullmq';
+import { StorageService } from 'src/infrastructure/storage/storage.service';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { PostImageEvent } from './events/post-image.event';
 
 @Injectable()
 export class PostImageService {
   constructor(
     @Inject(POST_IMAGE_TOKEN)
-    private readonly postImageRepository: PostImageRepository
+    private readonly postImageRepository: PostImageRepository,
+    private readonly eventEmmiter: EventEmitter2
   ) { }
 
   async uploadFile(userId: string, postId: string, file: Express.Multer.File) {
 
-    const path = await this.save(file, "posts");
-
-    return this.postImageRepository.createPostImage(userId, postId, path)
+    //const path = await this.save(file, "posts");
+    //const s3Path = await this.s3Storage.save(file, "posts")
+    this.eventEmmiter.emit(
+      'post.image',
+      new PostImageEvent(userId, postId, file)
+    );
 
   }
 
@@ -36,6 +43,8 @@ export class PostImageService {
     await fs.promises.writeFile(filePath, file.buffer)
     return filePath
   }
+
+
 
   create(createPostImageDto: CreatePostImageDto) {
     return 'This action adds a new postImage';

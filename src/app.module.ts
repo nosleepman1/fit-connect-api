@@ -13,9 +13,11 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { PostModule } from './domains/social/post/post.module';
 import { PostImageModule } from './domains/social/post-image/post-image.module';
+import { StorageModule } from './infrastructure/storage/storage.module';
 
 @Module({
   imports: [
+    StorageModule,
     MailerModule,
     ConfigModule.forRoot({ isGlobal: true }),
     PrismaModule,
@@ -45,6 +47,7 @@ import { PostImageModule } from './domains/social/post-image/post-image.module';
     }),
     PostModule,
     PostImageModule,
+    StorageModule,
   ],
   controllers: [],
   providers: [
@@ -54,4 +57,4 @@ import { PostImageModule } from './domains/social/post-image/post-image.module';
     },
   ],
 })
-export class AppModule {}
+export class AppModule { }

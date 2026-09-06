@@ -16,11 +16,14 @@ import { JwtAuthGuard } from 'src/domains/identity/strategy/jwt-auth.guard';
 
 @Controller('post')
 export class PostController {
-  constructor(private readonly postService: PostService) { }
+  constructor(private readonly postService: PostService) {}
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  create(@CurrentUser('sub') userId: string, @Body() createPostDto: CreatePostDto) {
+  create(
+    @CurrentUser('sub') userId: string,
+    @Body() createPostDto: CreatePostDto,
+  ) {
     return this.postService.create(userId, createPostDto);
   }
 

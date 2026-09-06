@@ -19,7 +19,7 @@ import { CurrentUser } from 'src/infrastructure/decorators/current-user.decorato
 
 @Controller('post-image')
 export class PostImageController {
-  constructor(private readonly postImageService: PostImageService) { }
+  constructor(private readonly postImageService: PostImageService) {}
 
   @Post()
   @UseGuards(JwtAuthGuard)
@@ -27,7 +27,8 @@ export class PostImageController {
   create(
     @CurrentUser('sub') userId: string,
     @Body('postId') postId: string,
-    @UploadedFile() file: Express.Multer.File) {
+    @UploadedFile() file: Express.Multer.File,
+  ) {
     return this.postImageService.uploadFile(userId, postId, file);
   }
 

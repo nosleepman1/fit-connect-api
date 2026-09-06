@@ -6,11 +6,10 @@ import { POST_TOKEN } from './contracts/tokens';
 
 @Injectable()
 export class PostService {
-
   constructor(
     @Inject(POST_TOKEN)
-    private readonly postRepository: PostReposiitoryInterface
-  ) { }
+    private readonly postRepository: PostReposiitoryInterface,
+  ) {}
 
   create(userId: string, createPostDto: CreatePostDto) {
     return this.postRepository.createPost(userId, createPostDto);

@@ -57,4 +57,4 @@ import { StorageModule } from './infrastructure/storage/storage.module';
     },
   ],
 })
-export class AppModule { }
+export class AppModule {}

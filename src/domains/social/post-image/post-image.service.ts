@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreatePostImageDto } from './dto/create-post-image.dto';
 import { UpdatePostImageDto } from './dto/update-post-image.dto';
-import * as fs from "fs"
+import * as fs from 'fs';
 import { POST_IMAGE_TOKEN } from './contracts/token';
 import { PostImageRepository } from './repository/post-image.repository';
 import { randomUUID } from 'bullmq';
@@ -14,37 +14,35 @@ export class PostImageService {
   constructor(
     @Inject(POST_IMAGE_TOKEN)
     private readonly postImageRepository: PostImageRepository,
-    private readonly eventEmmiter: EventEmitter2
-  ) { }
+    private readonly eventEmmiter: EventEmitter2,
+  ) {}
 
   async uploadFile(userId: string, postId: string, file: Express.Multer.File) {
-
     //const path = await this.save(file, "posts");
     //const s3Path = await this.s3Storage.save(file, "posts")
     this.eventEmmiter.emit(
       'post.image',
-      new PostImageEvent(userId, postId, file)
+      new PostImageEvent(userId, postId, file),
     );
-
   }
 
   async save(file: Express.Multer.File, purpose: string): Promise<string> {
-    const dir = "./src/public/images"
+    const dir = './src/public/images';
 
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
-    const fileName = Date.now() + "_" + purpose +
-      randomUUID() + '.' +
-      file.originalname
-        .split('.')
-        .pop()
+    const fileName =
+      Date.now() +
+      '_' +
+      purpose +
+      randomUUID() +
+      '.' +
+      file.originalname.split('.').pop();
 
-    const filePath = `${dir}/${fileName}`
-    await fs.promises.writeFile(filePath, file.buffer)
-    return filePath
+    const filePath = `${dir}/${fileName}`;
+    await fs.promises.writeFile(filePath, file.buffer);
+    return filePath;
   }
-
-
 
   create(createPostImageDto: CreatePostImageDto) {
     return 'This action adds a new postImage';

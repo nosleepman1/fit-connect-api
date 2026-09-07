@@ -3,17 +3,15 @@ import { PrismaService } from '../../../../infrastructure/database/prisma/prisma
 import { PostImageInterface } from '../contracts/post-image.interface';
 import { PostImageEntity } from '../entities/post-image.entity';
 
-
 @Injectable()
 export class PostImageRepository implements PostImageInterface {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async createPostImage(
     userId: string,
     postId: string,
     imageUrl: string,
   ): Promise<void> {
-
     await this.prisma.postImage.create({
       data: {
         path: imageUrl,

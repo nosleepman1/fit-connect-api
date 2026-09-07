@@ -7,7 +7,7 @@ import { PrismaService } from '../../../../infrastructure/database/prisma/prisma
 
 @Injectable()
 export class PrismaProfileRepository implements ProfileInterface {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async createProfile(
     userId: string,
@@ -43,7 +43,7 @@ export class PrismaProfileRepository implements ProfileInterface {
   async getProfileById(id: string): Promise<ProfileEntity | null> {
     return this.prisma.profile.findUnique({
       where: {
-        userId: id,
+        id: id,
       },
     });
   }
@@ -58,7 +58,7 @@ export class PrismaProfileRepository implements ProfileInterface {
   async deleteProfileById(id: string): Promise<void> {
     await this.prisma.profile.delete({
       where: {
-        userId: id,
+        id: id,
       },
     });
   }

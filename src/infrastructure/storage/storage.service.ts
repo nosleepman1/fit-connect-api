@@ -4,10 +4,8 @@ import { UpdateStorageDto } from './dto/update-storage.dto';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { ConfigService } from '@nestjs/config';
 
-
 @Injectable()
 export class StorageService {
-
   private s3: S3Client;
 
   constructor(private readonly configService: ConfigService) {
@@ -16,10 +14,12 @@ export class StorageService {
       endpoint: this.configService.get<string>('AWS_S3_ENDPOINT'),
       credentials: {
         accessKeyId: this.configService.get<string>('AWS_ACCESS_KEY_ID')!,
-        secretAccessKey: this.configService.get<string>('AWS_SECRET_ACCESS_KEY')!,
+        secretAccessKey: this.configService.get<string>(
+          'AWS_SECRET_ACCESS_KEY',
+        )!,
       },
       forcePathStyle: false,
-    })
+    });
   }
 
   getS3Client(): S3Client {
@@ -28,25 +28,24 @@ export class StorageService {
 
   async save(
     file: Express.Multer.File,
-    folder: string
+    folder: string,
   ): Promise<string | undefined> {
     const bucketName = this.configService.get<string>('AWS_S3_BUCKET');
 
-    const uniqueKey = `${folder}/${Date.now()}_${file.originalname}`
+    const uniqueKey = `${folder}/${Date.now()}_${file.originalname}`;
 
     const command = new PutObjectCommand({
       Bucket: bucketName,
       Key: uniqueKey,
       Body: file.buffer,
       ContentType: file.mimetype,
-    })
+    });
 
     try {
-      await this.s3.send(command)
-      return `https://${this.configService.get<string>('AWS_S3_ENDPOINT')}/${bucketName}/${uniqueKey}`
+      await this.s3.send(command);
+      return `https://${this.configService.get<string>('AWS_S3_ENDPOINT')}/${bucketName}/${uniqueKey}`;
     } catch (error) {
       console.log(error);
     }
   }
-
 }

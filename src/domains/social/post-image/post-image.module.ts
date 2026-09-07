@@ -23,9 +23,7 @@ import { ImageUploadProcessor } from './processors/image-upload.processor';
     StorageModule,
     BullModule.registerQueue({
       name: 'upload-post-image',
-
-    })
+    }),
   ],
-
 })
-export class PostImageModule { }
+export class PostImageModule {}

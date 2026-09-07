@@ -7,7 +7,7 @@ import { PrismaService } from '../../../../infrastructure/database/prisma/prisma
 
 @Injectable()
 export class PostRepository implements PostReposiitoryInterface {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   createPost(
     userId: string,
@@ -65,15 +65,16 @@ export class PostRepository implements PostReposiitoryInterface {
   }
 
   updatePost(
-    userId: string,
+    postId: string,
     updatePostDto: UpdatePostDto,
   ): Promise<PostEntity> {
     return this.prisma.post.update({
       where: {
-        id: (updatePostDto as UpdatePostDto & { id: PostEntity['id'] }).id,
-        userId,
+        id: postId,
       },
-      data: updatePostDto,
+      data: {
+        ...updatePostDto
+      }
     });
   }
 

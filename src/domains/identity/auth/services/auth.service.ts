@@ -33,7 +33,7 @@ export class AuthService {
     @Inject(AUTH_REPOSITORY_TOKEN)
     private readonly authRepository: AuthRepositoryInterface,
     private eventEmitter: EventEmitter2,
-  ) {}
+  ) { }
 
   async register(registerDto: RegisterDto): Promise<UserEntity> {
     const user = await this.userService.findByEmail(registerDto.email);
@@ -93,7 +93,9 @@ export class AuthService {
   }
 
   async verifyAcount(userId: string, token: string): Promise<void> {
+
     const gettedCode = await this.authRepository.getVerificationCode(userId);
+
     if (!gettedCode) {
       throw new NotFoundException('Code de verification introuvable');
     }

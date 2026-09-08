@@ -15,7 +15,7 @@ export class PostImageService {
     @Inject(POST_IMAGE_TOKEN)
     private readonly postImageRepository: PostImageRepository,
     private readonly eventEmmiter: EventEmitter2,
-  ) {}
+  ) { }
 
   async uploadFile(userId: string, postId: string, file: Express.Multer.File) {
     //const path = await this.save(file, "posts");
@@ -52,15 +52,15 @@ export class PostImageService {
     return `This action returns all postImage`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} postImage`;
   }
 
-  update(id: number, updatePostImageDto: UpdatePostImageDto) {
+  update(id: string, updatePostImageDto: UpdatePostImageDto) {
     return `This action updates a #${id} postImage`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} postImage`;
   }
 }

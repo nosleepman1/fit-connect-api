@@ -19,7 +19,7 @@ import { CurrentUser } from 'src/infrastructure/decorators/current-user.decorato
 
 @Controller('post-image')
 export class PostImageController {
-  constructor(private readonly postImageService: PostImageService) {}
+  constructor(private readonly postImageService: PostImageService) { }
 
   @Post()
   @UseGuards(JwtAuthGuard)
@@ -39,7 +39,7 @@ export class PostImageController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.postImageService.findOne(+id);
+    return this.postImageService.findOne(id);
   }
 
   @Patch(':id')
@@ -47,11 +47,11 @@ export class PostImageController {
     @Param('id') id: string,
     @Body() updatePostImageDto: UpdatePostImageDto,
   ) {
-    return this.postImageService.update(+id, updatePostImageDto);
+    return this.postImageService.update(id, updatePostImageDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.postImageService.remove(+id);
+    return this.postImageService.remove(id);
   }
 }
